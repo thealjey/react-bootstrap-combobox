@@ -1,0 +1,16 @@
+.al-combo {
+  &, > .dropdown-menu {
+    width: 100%;
+  }
+  > .btn {
+    align-items: center;
+    display: flex;
+    > span:first-child {
+      flex-grow: 1;
+    }
+  }
+  > .dropdown-menu {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}

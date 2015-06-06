@@ -1,0 +1,34 @@
+{
+  "name": "react-bootstrap-combobox",
+  "version": "1.0.0",
+  "description": "A combo-box component for React Bootstrap",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "make",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thealjey/react-bootstrap-combobox.git"
+  },
+  "keywords": [
+    "react-component",
+    "react",
+    "bootstrap",
+    "sass",
+    "combobox"
+  ],
+  "author": "Eugene Kuzmenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thealjey/react-bootstrap-combobox/issues"
+  },
+  "homepage": "https://github.com/thealjey/react-bootstrap-combobox#readme",
+  "dependencies": {
+    "babel": "^5.5.4",
+    "lodash": "^3.9.3",
+    "node-sass": "^3.1.2",
+    "react": "^0.13.3",
+    "react-bootstrap": "^0.23.1"
+  }
+}
