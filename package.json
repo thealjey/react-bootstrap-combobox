@@ -1,10 +1,10 @@
 {
   "name": "react-bootstrap-combobox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A combo-box component for React Bootstrap",
   "main": "index.js",
   "scripts": {
-    "postinstall": "make",
+    "postinstall": "rm -rf out & babel --optional runtime --loose all index.js --out-file out/script.js & node-sass --precision 8 _index.scss out/style.css & postcss --use autoprefixer --output out/style.css out/style.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
