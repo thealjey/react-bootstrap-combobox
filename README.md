@@ -29,5 +29,4 @@ It currently does only 2 things:
 1. Both `items` and `value` are required props.
 2. The component is stateless, which means that its `value` cannot be changed without re-rendering it.
 3. For performance reasons `items` are considered immutable.
-4. The component is written using ES6 + Flow static types and SASS, it is advisable to use a compiler (e.g. Babel),
-otherwhise feel free to use the precompiled version in the `out` directory.
+4. The component is written using ES6 + Flow static types and SASS.
