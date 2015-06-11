@@ -9,24 +9,29 @@ It currently does only 2 things:
 
 ### Installation
 
-    npm i react-bootstrap-combobox --save
+`npm i react-bootstrap-combobox --save`
+
 ### Usage
 
-    import {Combo} from 'react-bootstrap-combobox';
-    
-    function someFunc(key: string) {
-      ...
-    }
-    
-    <Combo items={{
-      volvo: 'Volvo',
-      saab: 'Saab',
-      mercedes: 'Mercedes',
-      audi: 'Audi'
-    }} value="volvo" onChange={someFunc} />
+```
+import {Combo} from 'react-bootstrap-combobox';
+
+function someFunc(key: string) {
+  ...
+}
+
+<Combo items={{
+  volvo: 'Volvo',
+  saab: 'Saab',
+  mercedes: 'Mercedes',
+  audi: 'Audi'
+}} value="volvo" onChange={someFunc} />
+```
+
 ### Caveats
 
 1. Both `items` and `value` are required props.
 2. The component is stateless, which means that its `value` cannot be changed without re-rendering it.
 3. For performance reasons `items` are considered immutable.
-4. The component is written using ES6 + Flow static types and SASS.
+4. The component is written using ES6 + Flow static types + JSX (comes precompiled with
+[webcompiler](https://github.com/thealjey/webcompiler)) and SASS.

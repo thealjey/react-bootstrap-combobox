@@ -1,11 +1,11 @@
 {
   "name": "react-bootstrap-combobox",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A combo-box component for React Bootstrap",
-  "main": "out/script.js",
+  "main": "build/Combo.js",
   "scripts": {
-    "postinstall": "rm -rf out & mkdir out & babel --optional runtime --loose all --no-comments index.js --out-file out/script.js & node-sass --precision 8 _index.scss out/style.css & postcss --use autoprefixer --output out/style.css out/style.css",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "node bin/compile"
   },
   "repository": {
     "type": "git",
@@ -25,12 +25,9 @@
   },
   "homepage": "https://github.com/thealjey/react-bootstrap-combobox#readme",
   "dependencies": {
-    "autoprefixer": "^5.2.0",
-    "babel": "^5.5.4",
     "lodash": "^3.9.3",
-    "node-sass": "^3.1.2",
-    "postcss-cli": "^1.3.1",
     "react": "^0.13.3",
-    "react-bootstrap": "^0.23.1"
+    "react-bootstrap": "^0.23.1",
+    "webcompiler": "^0.0.1"
   }
 }
