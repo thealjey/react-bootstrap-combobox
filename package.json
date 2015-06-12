@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-combobox",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A combo-box component for React Bootstrap",
   "main": "build/Combo.js",
   "scripts": {
@@ -31,6 +31,6 @@
     "react-bootstrap": "^0.23.2"
   },
   "devDependencies": {
-    "webcompiler": "^0.0.4"
+    "webcompiler": "^0.1.0"
   }
 }
