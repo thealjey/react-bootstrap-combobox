@@ -9,7 +9,9 @@ It currently does only 2 things:
 
 ### Installation
 
-`npm i react-bootstrap-combobox --save`
+```
+npm i react-bootstrap-combobox --save
+```
 
 ### Usage
 
