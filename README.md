@@ -1,6 +1,15 @@
 # react-bootstrap-combobox
 *A combo-box component for React Bootstrap.*
 
+[![Build Status](https://travis-ci.org/thealjey/react-bootstrap-combobox.svg?branch=master)](https://travis-ci.org/thealjey/react-bootstrap-combobox)
+[![Coverage Status](https://coveralls.io/repos/thealjey/react-bootstrap-combobox/badge.svg?branch=master&service=github)](https://coveralls.io/github/thealjey/react-bootstrap-combobox?branch=master)
+[![Code Climate](https://codeclimate.com/github/thealjey/react-bootstrap-combobox/badges/gpa.svg)](https://codeclimate.com/github/thealjey/react-bootstrap-combobox)
+[![Dependency Status](https://david-dm.org/thealjey/react-bootstrap-combobox.svg)](https://david-dm.org/thealjey/react-bootstrap-combobox)
+[![devDependency Status](https://david-dm.org/thealjey/react-bootstrap-combobox/dev-status.svg)](https://david-dm.org/thealjey/react-bootstrap-combobox#info=devDependencies)
+[![peerDependency Status](https://david-dm.org/thealjey/react-bootstrap-combobox/peer-status.svg)](https://david-dm.org/thealjey/react-bootstrap-combobox#info=peerDependencies)
+[![npm version](https://badge.fury.io/js/react-bootstrap-combobox.svg)](http://badge.fury.io/js/react-bootstrap-combobox)
+[![Slack channel](https://img.shields.io/badge/slack-combobox-blue.svg)](https://webcompiler.slack.com/messages/combobox)
+
 This is a very simple stateless wrapper around DropdownButton and MenuItem.
 
 ### Features
