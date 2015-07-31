@@ -1,16 +1,42 @@
 .al-combo {
+  &, * {
+    &:focus {
+      outline-style: none;
+    }
+  }
   &, > .dropdown-menu {
     width: 100%;
   }
-  > .btn {
+  > .btn > .wrap {
     align-items: center;
     display: flex;
     > span:first-child {
       flex-grow: 1;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
     }
   }
   > .dropdown-menu {
     overflow-x: hidden;
     overflow-y: auto;
+    > li {
+      &, * {
+        user-select: none;
+      }
+      &.active > a {
+        pointer-events: none;
+      }
+      &.dropdown-header > div {
+        cursor: default;
+      }
+      > a {
+        -khtml-user-drag: none;
+        -webkit-user-drag: none;
+        > div {
+          overflow-x: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
   }
 }
