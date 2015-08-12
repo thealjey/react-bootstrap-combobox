@@ -42,6 +42,11 @@ You need to include the **"_index.scss"** file from this package.
 If you are using [webcompiler](https://github.com/thealjey/webcompiler) then you can simply do:
 
 ```SCSS
+// import Bootstrap
+@import "bootstrap";
+// import Bootstrap theme
+@import "bootstrap/theme";
+// import the component
 @import "react-bootstrap-combobox";
 ```
 

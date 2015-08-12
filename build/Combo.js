@@ -14,7 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -85,24 +85,22 @@ var Combo = (function (_React$Component) {
     }, 150);
   }
 
+  /**
+   * A performance hook
+   *
+   * @memberof Combo
+   * @instance
+   * @private
+   * @method shouldComponentUpdate
+   * @param  {Object}  props - A props config
+   * @return {boolean} true if the component needs to be re-rendered
+   */
+
   _createClass(Combo, [{
     key: 'shouldComponentUpdate',
-
-    /**
-     * A performance hook
-     *
-     * @memberof Combo
-     * @instance
-     * @private
-     * @method shouldComponentUpdate
-     * @param  {Object}  props - A props config
-     * @return {boolean} true if the component needs to be re-rendered
-     */
     value: function shouldComponentUpdate(props) {
       return props.onChange !== this.props.onChange || props.items !== this.props.items || props.value !== this.props.value;
     }
-  }, {
-    key: 'onResize',
 
     /**
      * Invoked every time the viewport is resized
@@ -112,6 +110,8 @@ var Combo = (function (_React$Component) {
      * @private
      * @method onResize
      */
+  }, {
+    key: 'onResize',
     value: function onResize() {
       var height = window.innerHeight,
           combo,
@@ -135,8 +135,6 @@ var Combo = (function (_React$Component) {
         combo.setDropdownState(false);
       }
     }
-  }, {
-    key: 'componentDidMount',
 
     /**
      * Invoked when the component is mounted into the DOM tree
@@ -146,12 +144,12 @@ var Combo = (function (_React$Component) {
      * @private
      * @method componentDidMount
      */
+  }, {
+    key: 'componentDidMount',
     value: function componentDidMount() {
       this.handleResize();
       window.addEventListener('resize', this.handleResize);
     }
-  }, {
-    key: 'componentWillUnmount',
 
     /**
      * Invoked when the component is about to be unmounted from the DOM tree
@@ -161,11 +159,11 @@ var Combo = (function (_React$Component) {
      * @private
      * @method componentWillUnmount
      */
+  }, {
+    key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       window.removeEventListener('resize', this.handleResize);
     }
-  }, {
-    key: 'normalize',
 
     /**
      * Normalizes a dropdown item config object.
@@ -177,11 +175,11 @@ var Combo = (function (_React$Component) {
      * @param  {Object|string} value - a dropdown item config
      * @return {Object} a normalized config object
      */
+  }, {
+    key: 'normalize',
     value: function normalize(value) {
       return (0, _lodashLangIsString2['default'])(value) ? '-' === value ? { divider: true } : { label: value } : value;
     }
-  }, {
-    key: 'getLabel',
 
     /**
      * A label of the currently active menu item
@@ -191,11 +189,11 @@ var Combo = (function (_React$Component) {
      * @method getLabel
      * @return {string} a label of the currently active menu item
      */
+  }, {
+    key: 'getLabel',
     value: function getLabel() {
       return this.normalize(this.props.items[this.props.value]).label;
     }
-  }, {
-    key: 'render',
 
     /**
      * Invoked when the component is about to be unmounted from the DOM tree
@@ -206,6 +204,8 @@ var Combo = (function (_React$Component) {
      * @method render
      * @return {ReactElement} a virtual DOM tree representing the component
      */
+  }, {
+    key: 'render',
     value: function render() {
       var _this2 = this;
 

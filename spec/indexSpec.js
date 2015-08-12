@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, it, expect*/
 
 import {Combo as TestCombo} from '../lib';
 

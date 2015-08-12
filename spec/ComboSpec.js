@@ -1,5 +1,4 @@
 /* @flow */
-/*global describe, beforeEach, jasmine, it, expect, spyOn*/
 
 import React from 'react';
 import {DropdownButton, MenuItem} from 'react-bootstrap';

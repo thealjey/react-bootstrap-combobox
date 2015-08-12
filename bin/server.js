@@ -13,7 +13,6 @@ import tinylr from 'tiny-lr';
 var rootDir = join(__dirname, '..'),
     compiler = new SASS(),
     lr = tinylr(),
-    rootDir = join(__dirname, '..'),
     devDir = join(rootDir, 'development'),
     inPath = join(devDir, 'script.js'),
     buildDir = join(rootDir, 'build'),

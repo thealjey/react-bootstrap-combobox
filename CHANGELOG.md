@@ -1,3 +1,7 @@
+### v2.0.1
+
+* updated webcompiler to 1.3.1
+
 ### v2.0.0
 
 * updated webcompiler to 1.2.2
