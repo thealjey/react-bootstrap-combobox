@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-combobox",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A combo-box component for React Bootstrap",
   "main": "build/index.js",
   "scripts": {
@@ -44,7 +44,7 @@
     "react-hot-loader": "^1.2.8",
     "simple-recursive-watch": "^2.0.2",
     "tiny-lr": "^0.1.6",
-    "webcompiler": "^1.3.1",
+    "webcompiler": "^1.3.2",
     "webpack": "^1.11.0",
     "webpack-dev-server": "^1.10.1"
   }

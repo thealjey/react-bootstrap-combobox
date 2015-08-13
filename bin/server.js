@@ -15,12 +15,11 @@ var rootDir = join(__dirname, '..'),
     lr = tinylr(),
     devDir = join(rootDir, 'development'),
     inPath = join(devDir, 'script.js'),
-    buildDir = join(rootDir, 'build'),
     webSASS = compiler.feDev.bind(compiler,
       join(devDir, 'app.scss'),
       join(devDir, 'style.css'),
       function () {
-        lr.changed({body: {files: ['development/style.css']}});
+        lr.changed({body: {files: ['style.css']}});
       });
 
 lr.listen(35729);
@@ -38,7 +37,7 @@ new WebpackDevServer(webpack({
     inPath
   ],
   output: {
-    path: buildDir,
+    path: devDir,
     filename: 'script.js',
     publicPath: '/'
   },
@@ -54,6 +53,7 @@ new WebpackDevServer(webpack({
     }]
   }
 }), {
+  contentBase: devDir,
   publicPath: '/',
   hot: true,
   historyApiFallback: true
