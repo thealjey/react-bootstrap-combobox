@@ -21,8 +21,8 @@ export default class App extends React.Component {
       <Combo items={{
         a: {label: 'Winter', header: true},
         b: 'December',
-        c: 'January',
         d: 'Febuary',
+        c: 'January',
         e: '-',
         f: {label: 'Spring', header: true},
         g: 'March',

@@ -1,3 +1,8 @@
+### v2.0.3
+
+* updated webcompiler to v1.4.0, which allowed to significantly simplify and improve the process of the creation of a
+  development server
+
 ### v2.0.1
 
 * updated webcompiler to 1.3.1
