@@ -3,7 +3,7 @@
 import {JS, NativeProcess, SASSLint} from 'webcompiler';
 import {join} from 'path';
 
-var rootDir = join(__dirname, '..'),
+const rootDir = join(__dirname, '..'),
     binDir = join(rootDir, 'bin'),
     buildDir = join(rootDir, 'build'),
     libDir = join(rootDir, 'lib'),

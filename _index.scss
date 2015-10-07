@@ -1,28 +1,27 @@
 .al-combo {
-  &, * {
-    &:focus {
-      outline-style: none;
-    }
-  }
   &, > .dropdown-menu {
     width: 100%;
   }
-  > .btn > .wrap {
+  &, > .dropdown-menu > li > a {
+    outline-style: none;
+  }
+  > .btn > div > span:first-child, > .dropdown-menu, > .dropdown-menu > li div {
+    overflow-x: hidden;
+  }
+  > .btn > div > span:first-child, > .dropdown-menu > li div {
+    text-overflow: ellipsis;
+  }
+  > .btn > div {
     align-items: center;
     display: flex;
     > span:first-child {
-      flex-grow: 1;
-      overflow-x: hidden;
-      text-overflow: ellipsis;
+      flex: 1;
     }
   }
   > .dropdown-menu {
-    overflow-x: hidden;
     overflow-y: auto;
     > li {
-      &, * {
-        user-select: none;
-      }
+      user-select: none;
       &.active > a {
         pointer-events: none;
       }
@@ -30,12 +29,11 @@
         cursor: default;
       }
       > a {
-        -khtml-user-drag: none;
         -webkit-user-drag: none;
-        > div {
-          overflow-x: hidden;
-          text-overflow: ellipsis;
-        }
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
       }
     }
   }

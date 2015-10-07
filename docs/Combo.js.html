@@ -62,6 +62,8 @@ var _lodashFunctionDebounce = require('lodash/function/debounce');
 
 var _lodashFunctionDebounce2 = _interopRequireDefault(_lodashFunctionDebounce);
 
+var uid = 0;
+
 /**
  * A combo-box component for React Bootstrap
  *
@@ -82,11 +84,19 @@ var Combo = (function (_React$Component) {
   _inherits(Combo, _React$Component);
 
   function Combo(props) {
-    var _this = this;
-
     _classCallCheck(this, Combo);
 
     _get(Object.getPrototypeOf(Combo.prototype), 'constructor', this).call(this, props);
+
+    /**
+     * The html id
+     *
+     * @memberOf Combo
+     * @instance
+     * @private
+     * @type {string}
+     */
+    this.id = 'al-combo-' + ++uid;
 
     /**
      * Height of the browser viewport
@@ -94,23 +104,29 @@ var Combo = (function (_React$Component) {
      * @memberOf Combo
      * @instance
      * @private
-     * @type {Number}
+     * @type {number}
      */
     this.viewportHeight = 0;
 
     /**
-     * Handles browser resize events, debounced by 150ms, executed on requestAnimationFrame
+     * Handles browser resize events, debounced by 150ms
      *
      * @memberof Combo
      * @instance
      * @private
      * @method handleResize
      */
-    this.handleResize = (0, _lodashFunctionDebounce2['default'])(function () {
-      window.requestAnimationFrame(function () {
-        _this.onResize();
-      });
-    }, 150);
+    this.handleResize = (0, _lodashFunctionDebounce2['default'])(this.onResize.bind(this), 150);
+
+    /**
+     * Holds component state
+     *
+     * @memberof Combo
+     * @instance
+     * @private
+     * @type {Object}
+     */
+    this.state = { maxHeight: null };
   }
 
   /**
@@ -121,47 +137,14 @@ var Combo = (function (_React$Component) {
    * @private
    * @method shouldComponentUpdate
    * @param  {Object}  props - A props config
+   * @param  {Object}  state - A new component state
    * @return {boolean} true if the component needs to be re-rendered
    */
 
   _createClass(Combo, [{
     key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate(props) {
-      return props.onChange !== this.props.onChange || props.items !== this.props.items || props.value !== this.props.value;
-    }
-
-    /**
-     * Invoked every time the viewport is resized
-     *
-     * @memberof Combo
-     * @instance
-     * @private
-     * @method onResize
-     */
-  }, {
-    key: 'onResize',
-    value: function onResize() {
-      var height = window.innerHeight,
-          combo,
-          menu,
-          closed;
-
-      if (this.viewportHeight === height) {
-        return;
-      }
-      this.viewportHeight = height;
-
-      combo = this.refs.combo;
-      menu = _react2['default'].findDOMNode(combo.refs.menu);
-      closed = !combo.state.open;
-
-      if (closed) {
-        combo.setDropdownState(true);
-      }
-      menu.style.maxHeight = height - menu.getBoundingClientRect().top + 'px';
-      if (closed) {
-        combo.setDropdownState(false);
-      }
+    value: function shouldComponentUpdate(props, state) {
+      return props.onChange !== this.props.onChange || props.items !== this.props.items || props.value !== this.props.value || state.maxHeight !== this.state.maxHeight;
     }
 
     /**
@@ -194,6 +177,27 @@ var Combo = (function (_React$Component) {
     }
 
     /**
+     * Invoked every time the viewport is resized
+     *
+     * @memberof Combo
+     * @instance
+     * @private
+     * @method onResize
+     */
+  }, {
+    key: 'onResize',
+    value: function onResize() {
+      var height = window.innerHeight;
+
+      if (this.viewportHeight === height) {
+        return;
+      }
+      this.viewportHeight = height;
+
+      this.setState({ maxHeight: height - _react2['default'].findDOMNode(this).getBoundingClientRect().bottom - 5 });
+    }
+
+    /**
      * Normalizes a dropdown item config object.
      *
      * @memberof Combo
@@ -206,7 +210,9 @@ var Combo = (function (_React$Component) {
   }, {
     key: 'normalize',
     value: function normalize(value) {
-      return (0, _lodashLangIsString2['default'])(value) ? '-' === value ? { divider: true } : { label: value } : value;
+      var divider = '-' === value ? { divider: true } : { label: value };
+
+      return (0, _lodashLangIsString2['default'])(value) ? divider : value;
     }
 
     /**
@@ -224,6 +230,78 @@ var Combo = (function (_React$Component) {
     }
 
     /**
+     * Renders a button
+     *
+     * @memberof Combo
+     * @instance
+     * @private
+     * @method renderButton
+     * @return {ReactElement} a virtual DOM tree
+     */
+  }, {
+    key: 'renderButton',
+    value: function renderButton() {
+      return _react2['default'].createElement(
+        _reactBootstrap.Button,
+        { block: true, bsRole: 'toggle', className: 'dropdown-toggle' },
+        _react2['default'].createElement(
+          'div',
+          null,
+          this.getLabel(),
+          _react2['default'].createElement('span', { className: 'caret' })
+        )
+      );
+    }
+
+    /**
+     * Renders a menu item
+     *
+     * @memberof Combo
+     * @instance
+     * @private
+     * @method renderMenuItem
+     * @param  {Object|string} item - a dropdown item config
+     * @param  {string}        i    - a dropdown item key
+     * @return {ReactElement} a virtual DOM tree
+     */
+  }, {
+    key: 'renderMenuItem',
+    value: function renderMenuItem(item, i) {
+      item = this.normalize(item);
+      if (item.divider) {
+        return _react2['default'].createElement(_reactBootstrap.MenuItem, { key: i, divider: true });
+      }
+      return _react2['default'].createElement(
+        _reactBootstrap.MenuItem,
+        _extends({ key: i, eventKey: i, active: i === this.props.value }, item),
+        _react2['default'].createElement(
+          'div',
+          null,
+          item.label
+        )
+      );
+    }
+
+    /**
+     * Renders a menu
+     *
+     * @memberof Combo
+     * @instance
+     * @private
+     * @method renderMenu
+     * @return {ReactElement} a virtual DOM tree
+     */
+  }, {
+    key: 'renderMenu',
+    value: function renderMenu() {
+      return _react2['default'].createElement(
+        _reactBootstrap.Dropdown.Menu,
+        { style: this.state },
+        (0, _lodashCollectionMap2['default'])(this.props.items, this.renderMenuItem, this)
+      );
+    }
+
+    /**
      * Invoked when the component is about to be unmounted from the DOM tree
      *
      * @memberof Combo
@@ -235,33 +313,11 @@ var Combo = (function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
-      var _props = this.props;
-      var items = _props.items;
-      var value = _props.value;
-      var onChange = _props.onChange;
-
       return _react2['default'].createElement(
-        _reactBootstrap.DropdownButton,
-        { block: true, noCaret: true, ref: 'combo', className: 'al-combo', title: _react2['default'].createElement(
-            'div',
-            { className: 'wrap' },
-            this.getLabel(),
-            _react2['default'].createElement('span', { className: 'caret' })
-          ), onSelect: onChange.bind(this) },
-        (0, _lodashCollectionMap2['default'])(items, function (item, i) {
-          item = _this2.normalize(item);
-          return _react2['default'].createElement(
-            _reactBootstrap.MenuItem,
-            _extends({ key: i, eventKey: i, active: i === value }, item),
-            _react2['default'].createElement(
-              'div',
-              null,
-              item.label
-            )
-          );
-        })
+        _reactBootstrap.Dropdown,
+        { className: 'al-combo', id: this.id, onSelect: this.props.onChange },
+        this.renderButton(),
+        this.renderMenu()
       );
     }
   }]);
@@ -293,7 +349,7 @@ module.exports = exports['default'];</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Aug 19 2015 23:28:23 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Wed Oct 07 2015 11:58:08 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>
