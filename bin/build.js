@@ -4,6 +4,7 @@ import {JS, NativeProcess, SASSLint} from 'webcompiler';
 import {join} from 'path';
 
 const rootDir = join(__dirname, '..'),
+    modulesDir = join(rootDir, 'node_modules'),
     binDir = join(rootDir, 'bin'),
     buildDir = join(rootDir, 'build'),
     libDir = join(rootDir, 'lib'),
@@ -11,10 +12,11 @@ const rootDir = join(__dirname, '..'),
     docsDir = join(rootDir, 'docs'),
     specDir = join(rootDir, 'spec'),
     readme = join(rootDir, 'README.md'),
+    jsdocConfig = join(modulesDir, 'webcompiler', 'config', 'jsdoc.json'),
     style = join(rootDir, '_index.scss'),
     devStyle = join(devDir, 'app.scss'),
     js = new JS(),
-    jsdoc = new NativeProcess(join(rootDir, 'node_modules', '.bin', 'jsdoc'));
+    jsdoc = new NativeProcess(join(modulesDir, '.bin', 'jsdoc'));
 
 new SASSLint().run([style, devStyle], function () {
   js.beDir(libDir, buildDir, function () {
@@ -23,6 +25,6 @@ new SASSLint().run([style, devStyle], function () {
         return console.error(e);
       }
       console.log('\x1b[32mGenerated API documentation!\x1b[0m');
-    }, [buildDir, '-d', docsDir, '-R', readme]);
+    }, [buildDir, '-d', docsDir, '-R', readme, '-c', jsdocConfig]);
   }, specDir, binDir, devDir);
 });
