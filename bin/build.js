@@ -2,6 +2,7 @@
 
 import {JS, NativeProcess, SASSLint} from 'webcompiler';
 import {join} from 'path';
+import {createReadStream, createWriteStream} from 'fs';
 
 const rootDir = join(__dirname, '..'),
     binDir = join(rootDir, 'bin'),
@@ -25,6 +26,8 @@ new SASSLint().run([style, devStyle], function () {
       if (e) {
         return console.error(e);
       }
+      createReadStream(join(rootDir, 'LICENSE')).pipe(createWriteStream(join(docsDir, 'LICENSE')));
+      createReadStream(join(rootDir, 'doc_readme.md')).pipe(createWriteStream(join(docsDir, 'README.md')));
       console.log('\x1b[32mGenerated API documentation!\x1b[0m');
       npm.run(Function.prototype, ['test'], {stdio: 'inherit'});
     }, [buildDir, '-d', docsDir, '-R', readme, '-c', jsdocConfig]);

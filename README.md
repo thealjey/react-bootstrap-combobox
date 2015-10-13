@@ -1,6 +1,10 @@
 # react-bootstrap-combobox
 *A combo-box component for React Bootstrap.*
 
+[Project Home](https://github.com/thealjey/react-bootstrap-combobox)
+|
+[API Docs](https://thealjey.github.io/react-bootstrap-combobox)
+
 [![Build Status](https://travis-ci.org/thealjey/react-bootstrap-combobox.svg?branch=master)](https://travis-ci.org/thealjey/react-bootstrap-combobox)
 [![Coverage Status](https://coveralls.io/repos/thealjey/react-bootstrap-combobox/badge.svg?branch=master&service=github)](https://coveralls.io/github/thealjey/react-bootstrap-combobox?branch=master)
 [![Code Climate](https://codeclimate.com/github/thealjey/react-bootstrap-combobox/badges/gpa.svg)](https://codeclimate.com/github/thealjey/react-bootstrap-combobox)
@@ -30,11 +34,6 @@ performance increase from React for free!
 ```
 npm i react-bootstrap-combobox --save
 ```
-
-### API Documentation
-
-To get better acquainted with the available tools feel free to skim through the auto-generated
-[API Docs](https://rawgit.com/thealjey/react-bootstrap-combobox/master/docs/index.html).
 
 ### Usage
 
