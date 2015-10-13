@@ -1,3 +1,13 @@
+v3.0.0 - Tue, 13 Oct 2015 11:36:18 GMT
+--------------------------------------
+
+- [c232c9f](../../commit/c232c9f) [changed] host docs on GitHub Pages
+- [9cdeb94](../../commit/9cdeb94) [fixed] updated React to v0.14.0
+- [b5aca18](../../commit/b5aca18) [fixed] git ignore .idea
+- [a519b84](../../commit/a519b84) [fixed] flow ignore fbjs
+
+
+
 v2.1.0 - Wed, 07 Oct 2015 11:57:11 GMT
 --------------------------------------
 
