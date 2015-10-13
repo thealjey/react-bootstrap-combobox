@@ -1,12 +1,11 @@
 /* @flow */
 
-import React from 'react';
+import React from 'react/lib/ReactWithAddons';
+import ReactDOM from 'react-dom';
 import {Button, Dropdown, MenuItem} from 'react-bootstrap';
 import proxyquire from 'proxyquire';
 
 describe('Combo', function () {
-
-  /* @noflow */
   let Combo, cmp, debounce, map, addEventListener, removeEventListener, window;
 
   beforeEach(function () {
@@ -21,6 +20,9 @@ describe('Combo', function () {
   describe('bind overridden', function () {
 
     beforeEach(function () {
+      if (!Combo) {
+        return;
+      }
       spyOn(Combo.prototype.onResize, 'bind').and.returnValue('bound handler');
       spyOn(Combo.prototype.renderMenuItem, 'bind').and.returnValue('bound renderMenuItem');
       cmp = new Combo({something: 'here'});
@@ -31,18 +33,30 @@ describe('Combo', function () {
     });
 
     it('passes on the props', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.props).toEqual({something: 'here'});
     });
 
     it('setup a component id', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.id).toBe('al-combo-1');
     });
 
     it('sets the default viewportHeight', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.viewportHeight).toBe(0);
     });
 
     it('calls the bind method', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.onResize.bind).toHaveBeenCalledWith(cmp);
     });
 
@@ -51,6 +65,9 @@ describe('Combo', function () {
     });
 
     it('initializes state', function () {
+      if (!cmp) {
+        return;
+      }
       expect(cmp.state).toEqual({maxHeight: null});
     });
 
@@ -59,49 +76,19 @@ describe('Combo', function () {
   describe('original bind', function () {
 
     beforeEach(function () {
+      if (!Combo) {
+        return;
+      }
       cmp = new Combo({something: 'here'});
     });
 
-    describe('shouldComponentUpdate', function () {
-
-      it('onChange different', function () {
-        cmp.props.onChange = function () {};
-        expect(cmp.shouldComponentUpdate({onChange() {}})).toBeTruthy();
-      });
-
-      it('items different', function () {
-        const onChange = cmp.props.onChange = function () {};
-
-        cmp.props.items = {a: 'item 1', b: 'item 2'};
-        expect(cmp.shouldComponentUpdate({onChange, items: {c: 'item 3', d: 'item 4'}})).toBeTruthy();
-      });
-
-      it('value different', function () {
-        const onChange = cmp.props.onChange = function () {},
-            items = cmp.props.items = {a: 'item 1', b: 'item 2'};
-
-        cmp.props.value = 'a';
-        expect(cmp.shouldComponentUpdate({onChange, items, value: 'b'})).toBeTruthy();
-      });
-
-      it('maxHeight different', function () {
-        const onChange = cmp.props.onChange = function () {},
-            items = cmp.props.items = {a: 'item 1', b: 'item 2'},
-            value = cmp.props.value = 'a';
-
-        cmp.state.maxHeight = 100;
-        expect(cmp.shouldComponentUpdate({onChange, items, value}, {maxHeight: 200})).toBeTruthy();
-      });
-
-      it('no difference', function () {
-        const onChange = cmp.props.onChange = function () {},
-            items = cmp.props.items = {a: 'item 1', b: 'item 2'},
-            value = cmp.props.value = 'a',
-            maxHeight = cmp.state.maxHeight = 100;
-
-        expect(cmp.shouldComponentUpdate({onChange, items, value}, {maxHeight})).toBeFalsy();
-      });
-
+    it('shouldComponentUpdate', function () {
+      if (!cmp) {
+        return;
+      }
+      spyOn(React.addons, 'shallowCompare').and.returnValue('shallowCompare result');
+      expect(cmp.shouldComponentUpdate('props', 'state')).toBe('shallowCompare result');
+      expect(React.addons.shallowCompare).toHaveBeenCalledWith(cmp, 'props', 'state');
     });
 
     describe('onResize', function () {
@@ -111,19 +98,25 @@ describe('Combo', function () {
       });
 
       it('unchanged', function () {
+        if (!cmp || !window) {
+          return;
+        }
         window.innerHeight = 0;
         cmp.onResize();
         expect(cmp.setState).not.toHaveBeenCalled();
       });
 
       it('changed', function () {
+        if (!cmp || !window) {
+          return;
+        }
         const getBoundingClientRect = jasmine.createSpy('getBoundingClientRect').and.returnValue({bottom: 50});
 
-        spyOn(React, 'findDOMNode').and.returnValue({getBoundingClientRect});
+        spyOn(ReactDOM, 'findDOMNode').and.returnValue({getBoundingClientRect});
         window.innerHeight = 80;
         cmp.onResize();
         expect(cmp.viewportHeight).toBe(80);
-        expect(React.findDOMNode).toHaveBeenCalledWith(cmp);
+        expect(ReactDOM.findDOMNode).toHaveBeenCalledWith(cmp);
         expect(getBoundingClientRect).toHaveBeenCalled();
         expect(cmp.setState).toHaveBeenCalledWith({maxHeight: 25});
       });
@@ -133,15 +126,24 @@ describe('Combo', function () {
     describe('componentDidMount', function () {
 
       beforeEach(function () {
+        if (!cmp) {
+          return;
+        }
         spyOn(cmp, 'handleResize');
         cmp.componentDidMount();
       });
 
       it('calls handleResize', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.handleResize).toHaveBeenCalled();
       });
 
       it('sets up a resize listener on the window object', function () {
+        if (!cmp) {
+          return;
+        }
         expect(addEventListener).toHaveBeenCalledWith('resize', cmp.handleResize);
       });
 
@@ -150,10 +152,16 @@ describe('Combo', function () {
     describe('componentWillUnmount', function () {
 
       beforeEach(function () {
+        if (!cmp) {
+          return;
+        }
         cmp.componentWillUnmount();
       });
 
       it('removes the resize listener from the window object', function () {
+        if (!cmp) {
+          return;
+        }
         expect(removeEventListener).toHaveBeenCalledWith('resize', cmp.handleResize);
       });
 
@@ -162,14 +170,23 @@ describe('Combo', function () {
     describe('normalize', function () {
 
       it('converts to divider', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.normalize('-')).toEqual({divider: true});
       });
 
       it('converts to normal items', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.normalize('some text here')).toEqual({label: 'some text here'});
       });
 
       it('just passes on everything else unchanged', function () {
+        if (!cmp) {
+          return;
+        }
         const value = {label: 'some text here'};
 
         expect(cmp.normalize(value)).toBe(value);
@@ -180,12 +197,18 @@ describe('Combo', function () {
     describe('getLabel', function () {
 
       beforeEach(function () {
+        if (!cmp) {
+          return;
+        }
         cmp.props.items = {a: 'item 1', b: 'item 2'};
         cmp.props.value = 'a';
         spyOn(cmp, 'normalize').and.returnValue({label: 'some text here'});
       });
 
       it('returns the normalized label', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.getLabel()).toBe('some text here');
       });
 
@@ -195,9 +218,6 @@ describe('Combo', function () {
 
       beforeEach(function () {
         spyOn(React, 'createElement').and.callFake(function (type) {
-          if ('span' === type) {
-            return 'the caret icon';
-          }
           if ('div' === type) {
             return 'the button label wrapper';
           }
@@ -211,19 +231,24 @@ describe('Combo', function () {
       describe('structure', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           cmp.renderButton();
         });
 
         it('calls getLabel', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.getLabel).toHaveBeenCalled();
         });
 
-        it('creates the caret icon', function () {
-          expect(React.createElement).toHaveBeenCalledWith('span', {className: 'caret'});
-        });
-
         it('renders the button wrapper', function () {
-          expect(React.createElement).toHaveBeenCalledWith('div', null, 'some text here', 'the caret icon');
+          expect(React.createElement).toHaveBeenCalledWith('div', null, 'some text here', jasmine.objectContaining({
+            type: 'span',
+            props: {className: 'caret'}
+          }));
         });
 
         it('renders the button', function () {
@@ -234,6 +259,9 @@ describe('Combo', function () {
       });
 
       it('returns a response', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.renderButton()).toBe('the button component');
       });
 
@@ -249,10 +277,16 @@ describe('Combo', function () {
       describe('structure', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           cmp.renderMenuItem('item value', 'item key');
         });
 
         it('calls normalize', function () {
+          if (!cmp) {
+            return;
+          }
           expect(cmp.normalize).toHaveBeenCalledWith('item value');
         });
 
@@ -263,6 +297,9 @@ describe('Combo', function () {
       });
 
       it('returns a response', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.renderMenuItem(null, 'item key')).toBe('the divider component');
       });
 
@@ -285,6 +322,9 @@ describe('Combo', function () {
       describe('structure active', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           cmp.props = {value: 'item key'};
           cmp.renderMenuItem('item value', 'item key');
         });
@@ -303,6 +343,9 @@ describe('Combo', function () {
       describe('structure no active', function () {
 
         beforeEach(function () {
+          if (!cmp) {
+            return;
+          }
           cmp.props = {value: 'some other key'};
           cmp.renderMenuItem('item value', 'item key');
         });
@@ -315,6 +358,9 @@ describe('Combo', function () {
       });
 
       it('returns a response', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.renderMenuItem(null, 'item key')).toBe('the menu item component');
       });
 
@@ -327,12 +373,18 @@ describe('Combo', function () {
       });
 
       it('calls map', function () {
+        if (!cmp) {
+          return;
+        }
         cmp.props = {items: 'the items list'};
         cmp.renderMenu();
         expect(map).toHaveBeenCalledWith('the items list', cmp.renderMenuItem, cmp);
       });
 
       it('renders the menu', function () {
+        if (!cmp) {
+          return;
+        }
         cmp.state = 'the component state';
         cmp.renderMenu();
         expect(React.createElement).toHaveBeenCalledWith(Dropdown.Menu, {style: 'the component state'},
@@ -340,6 +392,9 @@ describe('Combo', function () {
       });
 
       it('returns a response', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.renderMenu()).toBe('the menu component');
       });
 
@@ -348,6 +403,9 @@ describe('Combo', function () {
     describe('render', function () {
 
       beforeEach(function () {
+        if (!cmp) {
+          return;
+        }
         spyOn(React, 'createElement').and.returnValue('the combobox component');
         cmp.props = {onChange: 'the change handler'};
         spyOn(cmp, 'renderButton').and.returnValue('the button component');
@@ -355,22 +413,34 @@ describe('Combo', function () {
       });
 
       it('calls renderButton', function () {
+        if (!cmp) {
+          return;
+        }
         cmp.render();
         expect(cmp.renderButton).toHaveBeenCalled();
       });
 
       it('calls renderMenu', function () {
+        if (!cmp) {
+          return;
+        }
         cmp.render();
         expect(cmp.renderMenu).toHaveBeenCalled();
       });
 
       it('renders the combobox component', function () {
+        if (!cmp) {
+          return;
+        }
         cmp.render();
         expect(React.createElement).toHaveBeenCalledWith(Dropdown, {className: 'al-combo', id: 'al-combo-1',
           onSelect: 'the change handler'}, 'the button component', 'the menu component');
       });
 
       it('returns a response', function () {
+        if (!cmp) {
+          return;
+        }
         expect(cmp.render()).toBe('the combobox component');
       });
 

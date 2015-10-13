@@ -16,9 +16,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _react = require('react');
+var _reactLibReactWithAddons = require('react/lib/ReactWithAddons');
 
-var _react2 = _interopRequireDefault(_react);
+var _reactLibReactWithAddons2 = _interopRequireDefault(_reactLibReactWithAddons);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactBootstrap = require('react-bootstrap');
 
@@ -34,6 +38,8 @@ var _lodashFunctionDebounce = require('lodash/function/debounce');
 
 var _lodashFunctionDebounce2 = _interopRequireDefault(_lodashFunctionDebounce);
 
+var caret = _reactLibReactWithAddons2['default'].createElement('span', { className: 'caret' });
+
 var uid = 0;
 
 /**
@@ -44,7 +50,7 @@ var uid = 0;
  * @example
  * import {Combo} from 'react-bootstrap-combobox';
  *
- * React.render(<Combo items={{
+ * ReactDOM.render(<Combo items={{
  *   // keys must be unique
  *   a: {label: 'first item', header: true}, // any combination of props supported by MenuItem
  *   b: 'second item',                       // same as {label: 'second item'}
@@ -116,7 +122,7 @@ var Combo = (function (_React$Component) {
   _createClass(Combo, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(props, state) {
-      return props.onChange !== this.props.onChange || props.items !== this.props.items || props.value !== this.props.value || state.maxHeight !== this.state.maxHeight;
+      return _reactLibReactWithAddons2['default'].addons.shallowCompare(this, props, state);
     }
 
     /**
@@ -166,7 +172,7 @@ var Combo = (function (_React$Component) {
       }
       this.viewportHeight = height;
 
-      this.setState({ maxHeight: height - _react2['default'].findDOMNode(this).getBoundingClientRect().bottom - 5 });
+      this.setState({ maxHeight: height - _reactDom2['default'].findDOMNode(this).getBoundingClientRect().bottom - 5 });
     }
 
     /**
@@ -213,14 +219,14 @@ var Combo = (function (_React$Component) {
   }, {
     key: 'renderButton',
     value: function renderButton() {
-      return _react2['default'].createElement(
+      return _reactLibReactWithAddons2['default'].createElement(
         _reactBootstrap.Button,
         { block: true, bsRole: 'toggle', className: 'dropdown-toggle' },
-        _react2['default'].createElement(
+        _reactLibReactWithAddons2['default'].createElement(
           'div',
           null,
           this.getLabel(),
-          _react2['default'].createElement('span', { className: 'caret' })
+          caret
         )
       );
     }
@@ -241,12 +247,12 @@ var Combo = (function (_React$Component) {
     value: function renderMenuItem(item, i) {
       item = this.normalize(item);
       if (item.divider) {
-        return _react2['default'].createElement(_reactBootstrap.MenuItem, { key: i, divider: true });
+        return _reactLibReactWithAddons2['default'].createElement(_reactBootstrap.MenuItem, { key: i, divider: true });
       }
-      return _react2['default'].createElement(
+      return _reactLibReactWithAddons2['default'].createElement(
         _reactBootstrap.MenuItem,
         _extends({ key: i, eventKey: i, active: i === this.props.value }, item),
-        _react2['default'].createElement(
+        _reactLibReactWithAddons2['default'].createElement(
           'div',
           null,
           item.label
@@ -266,7 +272,7 @@ var Combo = (function (_React$Component) {
   }, {
     key: 'renderMenu',
     value: function renderMenu() {
-      return _react2['default'].createElement(
+      return _reactLibReactWithAddons2['default'].createElement(
         _reactBootstrap.Dropdown.Menu,
         { style: this.state },
         (0, _lodashCollectionMap2['default'])(this.props.items, this.renderMenuItem, this)
@@ -285,7 +291,7 @@ var Combo = (function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2['default'].createElement(
+      return _reactLibReactWithAddons2['default'].createElement(
         _reactBootstrap.Dropdown,
         { className: 'al-combo', id: this.id, onSelect: this.props.onChange },
         this.renderButton(),
@@ -295,14 +301,14 @@ var Combo = (function (_React$Component) {
   }]);
 
   return Combo;
-})(_react2['default'].Component);
+})(_reactLibReactWithAddons2['default'].Component);
 
 exports['default'] = Combo;
 
 Combo.propTypes = {
-  onChange: _react2['default'].PropTypes.func,
-  items: _react2['default'].PropTypes.object.isRequired,
-  value: _react2['default'].PropTypes.string.isRequired
+  onChange: _reactLibReactWithAddons2['default'].PropTypes.func,
+  items: _reactLibReactWithAddons2['default'].PropTypes.object.isRequired,
+  value: _reactLibReactWithAddons2['default'].PropTypes.string.isRequired
 };
 Combo.defaultProps = { onChange: Function.prototype };
 module.exports = exports['default'];
