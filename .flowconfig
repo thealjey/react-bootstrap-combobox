@@ -1,6 +1,7 @@
 [ignore]
 .*/invalidPackageJson/*
 .*/build/*
+.*/fbjs/*
 .*/node_modules/.*/test/*
 .*/node_modules/.*/spec/*
 coverage/*
