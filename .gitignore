@@ -29,3 +29,6 @@ node_modules
 # Compiled development resources
 development/style.css
 development/style.css.map
+
+# WebStorm project files
+.idea
