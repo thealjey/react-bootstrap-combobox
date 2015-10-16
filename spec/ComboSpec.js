@@ -23,7 +23,6 @@ describe('Combo', function () {
       if (!Combo) {
         return;
       }
-      spyOn(Combo.prototype.onResize, 'bind').and.returnValue('bound handler');
       spyOn(Combo.prototype.renderMenuItem, 'bind').and.returnValue('bound renderMenuItem');
       cmp = new Combo({something: 'here'});
     });
@@ -51,17 +50,6 @@ describe('Combo', function () {
         return;
       }
       expect(cmp.viewportHeight).toBe(0);
-    });
-
-    it('calls the bind method', function () {
-      if (!cmp) {
-        return;
-      }
-      expect(cmp.onResize.bind).toHaveBeenCalledWith(cmp);
-    });
-
-    it('debounces the bound handler', function () {
-      expect(debounce).toHaveBeenCalledWith('bound handler', 150);
     });
 
     it('initializes state', function () {
@@ -129,7 +117,7 @@ describe('Combo', function () {
         if (!cmp) {
           return;
         }
-        spyOn(cmp, 'handleResize');
+        spyOn(cmp, 'onResize');
         cmp.componentDidMount();
       });
 
@@ -137,14 +125,14 @@ describe('Combo', function () {
         if (!cmp) {
           return;
         }
-        expect(cmp.handleResize).toHaveBeenCalled();
+        expect(cmp.onResize).toHaveBeenCalled();
       });
 
       it('sets up a resize listener on the window object', function () {
         if (!cmp) {
           return;
         }
-        expect(addEventListener).toHaveBeenCalledWith('resize', cmp.handleResize);
+        expect(addEventListener).toHaveBeenCalledWith('resize', cmp.onResize);
       });
 
     });
@@ -162,7 +150,7 @@ describe('Combo', function () {
         if (!cmp) {
           return;
         }
-        expect(removeEventListener).toHaveBeenCalledWith('resize', cmp.handleResize);
+        expect(removeEventListener).toHaveBeenCalledWith('resize', cmp.onResize);
       });
 
     });

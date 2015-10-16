@@ -22,8 +22,6 @@ var _reactLibReactWithAddons2 = _interopRequireDefault(_reactLibReactWithAddons)
 
 var _reactDom = require('react-dom');
 
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _reactBootstrap = require('react-bootstrap');
 
 var _lodashCollectionMap = require('lodash/collection/map');
@@ -39,6 +37,10 @@ var _lodashFunctionDebounce = require('lodash/function/debounce');
 var _lodashFunctionDebounce2 = _interopRequireDefault(_lodashFunctionDebounce);
 
 var caret = _reactLibReactWithAddons2['default'].createElement('span', { className: 'caret' });
+var _React$PropTypes = _reactLibReactWithAddons2['default'].PropTypes;
+var func = _React$PropTypes.func;
+var object = _React$PropTypes.object;
+var string = _React$PropTypes.string;
 
 var uid = 0;
 
@@ -49,8 +51,9 @@ var uid = 0;
  * @param {Object} props - A props config
  * @example
  * import {Combo} from 'react-bootstrap-combobox';
+ * import {render} from 'react-dom';
  *
- * ReactDOM.render(<Combo items={{
+ * render(<Combo items={{
  *   // keys must be unique
  *   a: {label: 'first item', header: true}, // any combination of props supported by MenuItem
  *   b: 'second item',                       // same as {label: 'second item'}
@@ -87,16 +90,6 @@ var Combo = (function (_React$Component) {
     this.viewportHeight = 0;
 
     /**
-     * Handles browser resize events, debounced by 150ms
-     *
-     * @memberof Combo
-     * @instance
-     * @private
-     * @method handleResize
-     */
-    this.handleResize = (0, _lodashFunctionDebounce2['default'])(this.onResize.bind(this), 150);
-
-    /**
      * Holds component state
      *
      * @memberof Combo
@@ -105,6 +98,8 @@ var Combo = (function (_React$Component) {
      * @type {Object}
      */
     this.state = { maxHeight: null };
+
+    this.onResize = (0, _lodashFunctionDebounce2['default'])(this.onResize.bind(this), 150);
   }
 
   /**
@@ -136,8 +131,8 @@ var Combo = (function (_React$Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.handleResize();
-      window.addEventListener('resize', this.handleResize);
+      this.onResize();
+      window.addEventListener('resize', this.onResize);
     }
 
     /**
@@ -151,7 +146,7 @@ var Combo = (function (_React$Component) {
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      window.removeEventListener('resize', this.handleResize);
+      window.removeEventListener('resize', this.onResize);
     }
 
     /**
@@ -172,7 +167,7 @@ var Combo = (function (_React$Component) {
       }
       this.viewportHeight = height;
 
-      this.setState({ maxHeight: height - _reactDom2['default'].findDOMNode(this).getBoundingClientRect().bottom - 5 });
+      this.setState({ maxHeight: height - (0, _reactDom.findDOMNode)(this).getBoundingClientRect().bottom - 5 });
     }
 
     /**
@@ -204,7 +199,11 @@ var Combo = (function (_React$Component) {
   }, {
     key: 'getLabel',
     value: function getLabel() {
-      return this.normalize(this.props.items[this.props.value]).label;
+      var _props = this.props;
+      var items = _props.items;
+      var value = _props.value;
+
+      return this.normalize(items[value]).label;
     }
 
     /**
@@ -305,10 +304,6 @@ var Combo = (function (_React$Component) {
 
 exports['default'] = Combo;
 
-Combo.propTypes = {
-  onChange: _reactLibReactWithAddons2['default'].PropTypes.func,
-  items: _reactLibReactWithAddons2['default'].PropTypes.object.isRequired,
-  value: _reactLibReactWithAddons2['default'].PropTypes.string.isRequired
-};
+Combo.propTypes = { onChange: func, items: object.isRequired, value: string.isRequired };
 Combo.defaultProps = { onChange: Function.prototype };
 module.exports = exports['default'];

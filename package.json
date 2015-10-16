@@ -55,6 +55,6 @@
     "proxyquire": "^1.7.3",
     "react-hot-loader": "^1.2.8",
     "release-script": "^0.5.3",
-    "webcompiler": "^2.0.4"
+    "webcompiler": "^2.0.5"
   }
 }

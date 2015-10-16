@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import {Combo} from '../lib';
+import Combo from '../lib/Combo';
 
 export default class App extends React.Component {
 
