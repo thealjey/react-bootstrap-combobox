@@ -38,7 +38,7 @@
   "homepage": "https://github.com/thealjey/react-bootstrap-combobox#readme",
   "dependencies": {
     "babel-runtime": "^5.8.19",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.19",
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.1",
     "react-dom": "^0.14.0"
